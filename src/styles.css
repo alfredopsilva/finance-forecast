@@ -1,0 +1,23 @@
+
+@import "tailwindcss";
+
+@config "./tailwind.config.ts";
+
+/* Or configure directly in CSS with v4 syntax */
+@theme {
+  --color-primary: #3b82f6;
+}
+
+body {
+  @apply m-0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  monospace;
+}
