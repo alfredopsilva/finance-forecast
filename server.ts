@@ -84,6 +84,9 @@ export async function createServer(
                 },
             },
             appType: 'custom',
+            css: {
+                devSourcemap: true,
+            }
         });
 
         app.use(vite.middlewares);
@@ -102,6 +105,12 @@ export async function createServer(
                 maxAge: '1y',
                 etag: true,
                 lastModified: true,
+                setHeaders: (res, path) => {
+                    if (path.endsWith('.css')) {
+                        res.setHeader('Content-Type', 'text/css');
+                        res.setHeader('Cache-Control', 'public, max-age=31536000');
+                    }
+                }
             })
         );
 
@@ -118,18 +127,29 @@ export async function createServer(
         });
     });
 
-    // Main SSR handler
+    // Main SSR handler - FIXED: Better asset detection
     app.use(
         '*',
-        asyncHandler(async (req: Request, res: Response) => {
+        asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
             const url = req.originalUrl;
             const startTime = Date.now();
 
             try {
-                // Validate that this is a valid route (not a static asset)
-                if (path.extname(url) !== '') {
-                    console.warn(`⚠️  ${url} is not a valid router path`);
-                    throw new SSRError(`${url} is not a valid router path`, 404);
+                // FIXED: Better validation for static assets vs routes
+                const fileExtension = path.extname(url);
+
+                // In development, let Vite handle assets
+                if (!isProd && fileExtension !== '') {
+                    // For development, if it's a static asset and we get here,
+                    // it means Vite didn't handle it, so it's a 404
+                    return res.status(404).end();
+                }
+
+                // In production, static assets should be served by express.static
+                // If we get here with an extension, it's a missing asset
+                if (isProd && fileExtension !== '') {
+                    console.warn(`⚠️  Static asset not found: ${url}`);
+                    return res.status(404).end();
                 }
 
                 // Get Vite-transformed head for development

@@ -1,7 +1,7 @@
 
 // Create a development error page with detailed information
 
-import type {SSRError} from "@/server.ts";
+import type {SSRError} from "../../server.ts";
 
 export function createDevelopmentErrorPage(error: SSRError, url: string): string {
     return `<!DOCTYPE html>

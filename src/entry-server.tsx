@@ -5,7 +5,6 @@ import {
 } from '@tanstack/react-start/server'
 import {createRouter} from './router'
 import type express from 'express'
-import './styles.css' 
 
 export async function render({
                                  req,

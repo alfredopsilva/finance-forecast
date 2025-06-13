@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx src/server.ts",
+    "dev": "tsx server.ts",
     "dev:client": "vite --port 3000",
     "start": "node dist/server.js",
-    "build": "vite build && tsc && tsx src/server.ts --build",
+    "build": "vite build && tsc && tsx server.ts --build",
     "build:client": "vite build",
     "build:server": "tsc",
     "serve": "vite preview",
