@@ -1,3 +1,6 @@
+import type {QueryClient} from "@tanstack/react-query";
+
 export type RouterContext = {
-    head: string
+    head: string,
+    queryClient: QueryClient
 }

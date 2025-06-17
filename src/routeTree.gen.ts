@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StocksIndexRouteImport } from './routes/stocks/index'
+import { Route as DemoIndexRouteImport } from './routes/demo/index'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -28,34 +29,43 @@ const StocksIndexRoute = StocksIndexRouteImport.update({
   path: '/stocks/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DemoIndexRoute = DemoIndexRouteImport.update({
+  id: '/demo/',
+  path: '/demo/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/demo': typeof DemoIndexRoute
   '/stocks': typeof StocksIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/demo': typeof DemoIndexRoute
   '/stocks': typeof StocksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/demo/': typeof DemoIndexRoute
   '/stocks/': typeof StocksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/stocks'
+  fullPaths: '/' | '/about' | '/demo' | '/stocks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/stocks'
-  id: '__root__' | '/' | '/about' | '/stocks/'
+  to: '/' | '/about' | '/demo' | '/stocks'
+  id: '__root__' | '/' | '/about' | '/demo/' | '/stocks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  DemoIndexRoute: typeof DemoIndexRoute
   StocksIndexRoute: typeof StocksIndexRoute
 }
 
@@ -82,12 +92,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StocksIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/demo/': {
+      id: '/demo/'
+      path: '/demo'
+      fullPath: '/demo'
+      preLoaderRoute: typeof DemoIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  DemoIndexRoute: DemoIndexRoute,
   StocksIndexRoute: StocksIndexRoute,
 }
 export const routeTree = rootRouteImport
