@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { stocksQueryOptions, type StockQuote } from "@/routes/stocks/index";
+import { stocksQueryOptions, type StockQuote } from "@/routes/trends/index";
 
 export function StocksTableClient() {
   // This will use the prefetched data from the server

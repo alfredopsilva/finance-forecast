@@ -44,7 +44,7 @@ export const stocksQueryOptions = {
   refetchOnReconnect: false,
 } as const;
 
-export const Route = createFileRoute("/stocks/")({
+export const Route = createFileRoute("/trends/")({
   loader: async ({ context }) => {
     // Prefetch the query - this will cache it and make it available to the client
     await context.queryClient.prefetchQuery(stocksQueryOptions);
