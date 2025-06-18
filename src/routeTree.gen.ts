@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TrendsIndexRouteImport } from './routes/trends/index'
+import { Route as PortfolioIndexRouteImport } from './routes/portfolio/index'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -28,34 +29,43 @@ const TrendsIndexRoute = TrendsIndexRouteImport.update({
   path: '/trends/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortfolioIndexRoute = PortfolioIndexRouteImport.update({
+  id: '/portfolio/',
+  path: '/portfolio/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/portfolio': typeof PortfolioIndexRoute
   '/trends': typeof TrendsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/portfolio': typeof PortfolioIndexRoute
   '/trends': typeof TrendsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/portfolio/': typeof PortfolioIndexRoute
   '/trends/': typeof TrendsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/trends'
+  fullPaths: '/' | '/about' | '/portfolio' | '/trends'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/trends'
-  id: '__root__' | '/' | '/about' | '/trends/'
+  to: '/' | '/about' | '/portfolio' | '/trends'
+  id: '__root__' | '/' | '/about' | '/portfolio/' | '/trends/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  PortfolioIndexRoute: typeof PortfolioIndexRoute
   TrendsIndexRoute: typeof TrendsIndexRoute
 }
 
@@ -82,12 +92,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrendsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portfolio/': {
+      id: '/portfolio/'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  PortfolioIndexRoute: PortfolioIndexRoute,
   TrendsIndexRoute: TrendsIndexRoute,
 }
 export const routeTree = rootRouteImport

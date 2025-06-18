@@ -30,6 +30,12 @@ function App() {
                 Trends
               </Link>
               <Link
+                to="/portfolio"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                Portfolio
+              </Link>
+              <Link
                 to="/about"
                 className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
               >
@@ -58,6 +64,12 @@ function App() {
                 className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
               >
                 View Market Trends
+              </Link>
+              <Link
+                to="/portfolio"
+                className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
+              >
+                Portfolio
               </Link>
               <Link
                 to="/about"
